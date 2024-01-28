@@ -11,8 +11,8 @@ locals {
 #   for_each = { for node in local.vm_nodes : node.name => node }
 
 #   provisioner "file" {
-#     source      = "${path.module}/../helpers/install-rke2-worker.sh"
-#     destination = "/tmp/install-rke2-worker.sh"
+#     source      = "${path.module}/../helpers/kubeadm-install-worker.sh"
+#     destination = "/tmp/kubeadm-install-worker.sh"
 
 #     connection {
 #       type        = "ssh"
@@ -63,10 +63,10 @@ runcmd:
   - [ bash, -c, 'echo "Running: mkdir -p /data" >> /root/cloud-init-run.log; mkdir -p /data >> /root/cloud-init-run.log 2>&1' ]
   - [ bash, -c, 'echo "Running: mount LABEL=data /data" >> /root/cloud-init-run.log; mount LABEL=data /data >> /root/cloud-init-run.log 2>&1' ]
   - [ bash, -c, 'echo "Running: echo \"LABEL=data /data ext4 defaults 0 0\" >> /etc/fstab" >> /root/cloud-init-run.log; echo "LABEL=data /data ext4 defaults 0 0" >> /etc/fstab' ]
-  - [ bash, -c, 'start_time=$(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z"); echo "Running Wget - install-rke2-worker.sh: $start_time" >> /root/cloud-init-run.log' ]
-  - [ bash, -c, 'wget -P /tmp https://raw.githubusercontent.com/bashfulrobot/libvirt-module-helpers/main/install-rke2-worker.sh >> /root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'chmod +x /tmp/install-rke2-worker.sh >> /root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, '/tmp/install-rke2-worker.sh >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'start_time=$(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z"); echo "Running Wget - kubeadm-install-worker.sh: $start_time" >> /root/cloud-init-run.log' ]
+  - [ bash, -c, 'wget -P /tmp https://raw.githubusercontent.com/bashfulrobot/libvirt-module-helpers/main/kubeadm-install-worker.sh >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'chmod +x /tmp/kubeadm-install-worker.sh >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, '/tmp/kubeadm-install-worker.sh >> /root/cloud-init-run.log 2>&1' ]
   - [ bash, -c, 'echo "Cloud-init end: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /root/cloud-init-run.log' ]
 EOF
 }
