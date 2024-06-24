@@ -52,6 +52,12 @@ variable "network_id" {
   default     = "default"
 }
 
+# My modules are designed for NAT or ROUTED
+variable "network_mode" {
+  description = "The network mode for the k8s cluster network"
+  type        = string
+  default     = "nat"
+}
 variable "cluster_name" {
   description = "A name to provide for the k8s cluster"
   type        = string
@@ -85,7 +91,7 @@ variable "vm_data_disk_size" {
 variable "image_url" {
   description = "The URL of the image used to deploy the VMs"
   type        = string
-  default     = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+  default     = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
 }
 
 variable "autostart" {
